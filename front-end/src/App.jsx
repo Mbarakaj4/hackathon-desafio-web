@@ -10,7 +10,7 @@ function App() {
       <Route path="/" element={<LoginPage />} />
       <Route path="/categoria" element={<Lugares />} />
       <Route path="/categoria/:category" element={<Lugares />} />
-      <Route path="/categoria/lugar/:id" element={<LugarPage />} />
+      <Route path="/lugar/:id" element={<LugarPage />} />
     </Routes>
   );
 }

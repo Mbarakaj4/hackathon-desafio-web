@@ -8,7 +8,7 @@ function LoginPage() {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch(`${URL}/api/security/login`, {
+      const response = await fetch(`${URL}api/security/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -22,6 +22,7 @@ function LoginPage() {
       if (response.ok) {
         localStorage.setItem("token", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
+        localStorage.setItem("user", data.user.username);
         navigate("/categoria");
       }
       throw new Error(data.message);
@@ -31,6 +32,9 @@ function LoginPage() {
       setLoading(false);
     }
   };
+  if (localStorage.getItem("token")) {
+    navigate("/categoria");
+  }
   return (
     <div>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -76,6 +80,9 @@ function LoginPage() {
               </button>
             </div>
           </form>
+          <a href="/register" className="mt-2 text-center">
+            No tienes cuenta? Regístrate
+          </a>
         </div>
       </div>
     </div>
