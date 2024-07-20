@@ -18,13 +18,17 @@ function LoginPage() {
           password: event.target.password.value,
         }),
       });
-      if (response.status === 200) {
-        const data = await response.json();
-        localStorage.setItem("token", data.token);
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem("token", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
         navigate("/categoria");
       }
+      throw new Error(data.message);
     } catch (error) {
-      console.error("Error:", error);
+      alert(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (
