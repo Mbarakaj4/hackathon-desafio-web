@@ -1,22 +1,23 @@
+import { useNavigate } from "react-router-dom";
 function LoginPage() {
+  const URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch(
-      "https://9v1r8dj9-3001.brs.devtunnels.ms/api/user",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: event.target.email.value,
-          password: event.target.password.value,
-        }),
-      }
-    );
+    const response = await fetch(`${URL}/api/security/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: event.target.email.value,
+        password: event.target.password.value,
+      }),
+    });
 
     if (response.status === 200) {
       alert("Usuario autenticado");
+      navigate("/categoria");
     } else {
       alert("Error al autenticar el usuario");
     }
@@ -30,7 +31,7 @@ function LoginPage() {
               Iniciar sesión
             </h2>
           </div>
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -60,7 +61,6 @@ function LoginPage() {
             <div className="flex items-center justify-center">
               <button
                 type="submit"
-                onSubmit={handleSubmit}
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Iniciar sesión
