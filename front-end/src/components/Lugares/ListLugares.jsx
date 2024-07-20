@@ -38,9 +38,9 @@ export const ListLugares = () => {
       .catch((error) => console.error("Error fetching places:", error));
   }, [URL, location.pathname]);
 
-    const redirectToPlace = (id) => {
-        navigate(`lugar/${id}`);
-    };
+  const redirectToPlace = (id) => {
+    navigate(`/lugar/${id}`);
+  };
 
   console.log(lugares);
   return (

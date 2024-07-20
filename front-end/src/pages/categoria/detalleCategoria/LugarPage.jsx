@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Imagenes from "../../../components/Categorias/lugares/Imagenes";
 import { Textarea } from "@nextui-org/react";
 import Header from "../../../components/header";
+import StarRating from "../../../components/StarRating";
 
 const LugarPage = () => {
   const URL = import.meta.env.VITE_API_URL;
@@ -13,8 +14,10 @@ const LugarPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Enviando reseña");
+    const user = JSON.parse(localStorage.getItem("user"));
     try {
-      const response = await fetch(`${URL}api/review/${id}`, {
+      const response = await fetch(`${URL}api/review/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -22,18 +25,33 @@ const LugarPage = () => {
         },
         body: JSON.stringify({
           comment: event.target.review.value,
-          user: localStorage.getItem("user"),
-          rating: 5,
+          user: user.userId,
+          rating: event.target.rating.value,
           placeId: id,
         }),
       });
       const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
       if (response.ok) {
-        setReviews([...reviews, data]);
+        try {
+          const response = await fetch(`${URL}api/maps/details/${id}`);
+          const reviewsResponse = await fetch(`${URL}api/review/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          const data = await response.json();
+          const reviewsData = await reviewsResponse.json();
+          setLugar(data);
+          setReviews(reviewsData);
+        } catch (error) {
+          console.log(error);
+          alert(error.message);
+        }
       }
-      throw new Error(data.message);
     } catch (error) {
-      console.error("Error:", error);
+      console.log(error);
+      alert(error.message);
     }
   };
 
@@ -50,9 +68,9 @@ const LugarPage = () => {
         const reviewsData = await reviewsResponse.json();
         setLugar(data);
         setReviews(reviewsData);
-        console.log(reviews);
       } catch (error) {
-        console.error("Error:", error);
+        console.log(error);
+        alert(error.message);
       }
     };
     getData();
@@ -79,7 +97,9 @@ const LugarPage = () => {
             </div>
             <div className="flex gap-4 items-center ">
               <span>{lugar.averageRating} Estrellas</span>
-              <button className="bg-blue-500 text-white px-2 py-1 rounded-md">
+              <StarRating rating={lugar.averageRating} score_by={5} />
+
+              <button className="bg-blue-500 text-white px-2 py-1 rounded-md hidden">
                 Agregar al Itinerario
               </button>
             </div>
@@ -117,7 +137,10 @@ const LugarPage = () => {
                   className="w-full p-2"
                   rows={4}
                 />
-                <button className="bg-blue-500 text-white px-4 py-2  rounded-md">
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white px-4 py-2  rounded-md"
+                >
                   Enviar
                 </button>
               </form>
@@ -125,16 +148,16 @@ const LugarPage = () => {
             {reviews ? (
               <section className="flex flex-col justify-center p-8 gap-4 w-1/2">
                 <h2 className="text-2xl">Reseñas</h2>
-                <span>5 : {reviews.percentageFive} %</span>
-                <span>4 : {reviews.percentageFour} %</span>
-                <span>3 : {reviews.percentageThree} %</span>
-                <span>2 : {reviews.percentageTwo} %</span>
-                <span>1 : {reviews.percentageOne} %</span>
+                <span>5 : {reviews.percentageFive || 0} %</span>
+                <span>4 : {reviews.percentageFour || 0} %</span>
+                <span>3 : {reviews.percentageThree || 0} %</span>
+                <span>2 : {reviews.percentageTwo || 0} %</span>
+                <span>1 : {reviews.percentageOne || 0} %</span>
                 {reviews.reviews.map((review) => (
                   <div key={review._id} className="flex flex-col gap-4">
                     <h3 className="text-xl">{review.title}</h3>
                     <div className="flex flex-col items-start gap-4 border border-blue-100 rounded-md p-4 shadow-sm">
-                      <span>{review.username}</span>
+                      <span className="font-semibold">{review.username}</span>
                       <div className="flex items-center gap-4">
                         <p>{review.comment}</p>
                         <span>{review.rating} Estrellas</span>
