@@ -25,6 +25,7 @@ export const AddItinerario = () => {
 
     return (
         <>
+        
             <Button onPress={onOpen}>Open Modal</Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
               <ModalContent>

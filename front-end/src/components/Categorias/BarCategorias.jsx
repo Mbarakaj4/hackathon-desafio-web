@@ -27,7 +27,14 @@ export const BarCategorias = () => {
         .catch(error => console.error('Error fetching categories:', error));
         }, []);
     return (
-        <div className="flex  justify-center overflow-x-auto bg-white py-2">
+<div className="w-full flex justify-center overflow-x-auto bg-white py-2">
+    <div className="w-full max-w-7xl flex flex-col items-center justify-center">
+            <h2>Categorias</h2>
+            
+            
+            <div className="flex items-center justify-center">
+
+
             {categorias.map((categoria, index) => (
                 <div 
                     onClick={() => redirectToCategory(categoria)} 
@@ -38,6 +45,9 @@ export const BarCategorias = () => {
                     <p className="text-sm font-medium text-gray-900">{categoria.name}</p>
                 </div>
             ))}
+            </div>
+            </div>
+            
         </div>
     );
 };

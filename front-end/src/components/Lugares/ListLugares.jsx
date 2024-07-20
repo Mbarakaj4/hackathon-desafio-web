@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Header from "../header";
 
 export const ListLugares = () => {
   const URL = import.meta.env.VITE_API_URL;
@@ -39,11 +40,15 @@ export const ListLugares = () => {
   }, [URL, location.pathname]);
 
     const redirectToPlace = (id) => {
-        navigate(`lugar/${id}`);
+        navigate(`/lugar/${id}`);
     };
 
   console.log(lugares);
   return (
+
+<>
+  
+
     <div className="grid grid-cols-1 p-6 md:grid-cols-3 gap-4">
       {lugares.map((place) => (
         <div
@@ -66,5 +71,7 @@ export const ListLugares = () => {
         </div>
       ))}
     </div>
+    </> 
+
   );
 };
