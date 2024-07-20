@@ -5,7 +5,7 @@ const jwtUtils = require("../utils/JwtUtil");
 
 router.use(jwtUtils.authenticateToken);
 
-router.post("/create", async (request, response) => {
+router.post("/", async (request, response) => {
   try {
     const itinerary = request.body;
     const status = await itineraryService.createItinerary(itinerary);
@@ -22,7 +22,7 @@ router.post("/create", async (request, response) => {
   }
 });
 
-router.get("/itineraries/:userId", async (request, response) => {
+router.get("/:userId", async (request, response) => {
   try {
     const userId = request.params.userId;
     const itineraries = await itineraryService.getItinerariesByUserId(userId);
