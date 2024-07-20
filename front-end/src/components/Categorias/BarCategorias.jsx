@@ -9,7 +9,12 @@ export const BarCategorias = () => {
   };
   useEffect(() => {
     const url = `${URL}api/maps/categories`;
-    fetch(url)
+    fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

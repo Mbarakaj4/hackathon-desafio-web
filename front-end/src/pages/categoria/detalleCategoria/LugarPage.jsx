@@ -9,7 +9,6 @@ const LugarPage = () => {
   const URL = import.meta.env.VITE_API_URL;
   const [lugar, setLugar] = useState(null);
   const [reviews, setReviews] = useState([]);
-  //obtener el nombre del lugar desde la URL
   const id = useParams().id;
 
   const handleSubmit = async (event) => {
@@ -34,7 +33,11 @@ const LugarPage = () => {
       if (!response.ok) throw new Error(data.message);
       if (response.ok) {
         try {
-          const response = await fetch(`${URL}api/maps/details/${id}`);
+          const response = await fetch(`${URL}api/maps/details/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
           const reviewsResponse = await fetch(`${URL}api/review/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -58,7 +61,11 @@ const LugarPage = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`${URL}api/maps/details/${id}`);
+        const response = await fetch(`${URL}api/maps/details/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         const reviewsResponse = await fetch(`${URL}api/review/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

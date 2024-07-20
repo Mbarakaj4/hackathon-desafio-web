@@ -4,7 +4,7 @@ const mapsService = require("../services/MapsService");
 const reviewService = require("../services/ReviewService");
 const jwtUtils = require("../utils/JwtUtil");
 
-//router.use(jwtUtils.authenticateToken);
+router.use(jwtUtils.authenticateToken);
 
 router.post("/search-places", async (request, response) => {
   try {
