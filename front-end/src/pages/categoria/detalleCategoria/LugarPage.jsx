@@ -96,8 +96,11 @@ const LugarPage = () => {
               </div>
             </div>
             <div className="flex gap-4 items-center ">
-              <span>{lugar.averageRating} Estrellas</span>
-              <StarRating rating={lugar.averageRating} score_by={5} />
+              <span>{lugar.averageRating}</span>
+              <StarRating
+                rating={lugar.averageRating}
+                score_by={lugar.averageRating}
+              />
 
               <button className="bg-blue-500 text-white px-2 py-1 rounded-md hidden">
                 Agregar al Itinerario
