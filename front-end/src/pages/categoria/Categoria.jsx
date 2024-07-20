@@ -1,8 +1,5 @@
-import React from 'react'
-import { BarCategorias } from '../../components/Categorias/BarCategorias'
+import { BarCategorias } from "../../components/Categorias/BarCategorias";
 const Categoria = () => {
-  return (
-    <BarCategorias />
-  )
-}
+  return <BarCategorias />;
+};
 export default Categoria;
