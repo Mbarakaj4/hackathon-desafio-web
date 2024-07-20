@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Imagenes from "../../../components/Categorias/lugares/Imagenes";
-import { Textarea } from "@nextui-org/react";
+import { Textarea, user } from "@nextui-org/react";
 
 const LugarPage = () => {
   const URL = import.meta.env.VITE_API_URL;
@@ -9,6 +9,32 @@ const LugarPage = () => {
   const [reviews, setReviews] = useState([]);
   //obtener el nombre del lugar desde la URL
   const id = useParams().id;
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(`${URL}/api/review/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          comment: event.target.review.value,
+          user: localStorage.getItem("user"),
+          rating: 5,
+          placeId: id,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setReviews([...reviews, data]);
+      }
+      throw new Error(data.message);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -51,15 +77,20 @@ const LugarPage = () => {
         <>
           <Imagenes photos={lugar.photos} />
           <section className="flex flex-col justify-center p-8 gap-4 w-1/2">
-            <h2 className="text-2xl">Reseña</h2>
-            <Textarea
-              placeholder="Escribe tu reseña"
-              className="w-full p-2"
-              rows={4}
-            />
-            <button className="bg-blue-500 text-white px-4 py-2  rounded-md">
-              Enviar
-            </button>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="review" className="text-2xl">
+                Reseña
+              </label>
+              <Textarea
+                name="review"
+                placeholder="Escribe tu reseña"
+                className="w-full p-2"
+                rows={4}
+              />
+              <button className="bg-blue-500 text-white px-4 py-2  rounded-md">
+                Enviar
+              </button>
+            </form>
           </section>
           {reviews && reviews.length > 0 ? (
             <section className="flex flex-col justify-center p-8 gap-4 w-1/2">
