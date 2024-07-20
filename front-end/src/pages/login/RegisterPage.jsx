@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-function LoginPage() {
+function RegisterPage() {
   const URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -8,24 +8,24 @@ function LoginPage() {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch(`${URL}api/security/login`, {
+      const response = await fetch(`${URL}api/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+            name: event.target.name.value,
+          username: event.target.username.value,
+          
           email: event.target.email.value,
           password: event.target.password.value,
         }),
       });
       const data = await response.json();
-
       if (response.ok) {
         localStorage.setItem("token", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
-        //guardar el objeto user en el localStorage
-        localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/categoria");
+        navigate("/");
       }
       throw new Error(data.message);
     } catch (error) {
@@ -34,37 +34,50 @@ function LoginPage() {
       setLoading(false);
     }
   };
-  if (localStorage.getItem("token")) {
-    navigate("/categoria");
-  }
   return (
     <div>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Iniciar sesión
+              Registrarse
             </h2>
           </div>
-          <form className="mt-8 mb-8 space-y-6" onSubmit={handleSubmit}>
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
+            
+    
               <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mt-4 mb-4">Email</label>
-
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mt-4 mb-4">
+                  Nombre de usuario
+                </label>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border  border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Nombre de usuario"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="mb-4 block text-sm font-medium text-gray-700 mt-4">Email</label>
                 <input
                   id="email"
                   name="email"
                   type="text"
                   autoComplete="email"
                   required
-                  className="appearance-none rounded-none relative  block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
-                  placeholder="Email"
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Usuario@ejemplo.com"
                 />
               </div>
               <div>
-              <label htmlFor="password" className="block text-sm  mt-4 font-medium text-gray-700 mb-4">Contraseña</label>
-
+                <label htmlFor="password" className="mb-4 block text-sm mt-4 font-medium text-gray-700">
+                  Contraseña
+                </label>
                 <input
                   id="password"
                   name="password"
@@ -80,19 +93,16 @@ function LoginPage() {
             <div className="flex items-center justify-center">
               <button
                 type="submit"
-                className="group mb-5 relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
               >
-                {loading ? "Cargando..." : "Iniciar sesión"}
+                {loading ? "Cargando..." : "Registrarse"}
               </button>
             </div>
           </form>
-          <a href="/registrarse" className="mt-8 text-orange-900 text-center">
-            No tienes cuenta? Regístrate
-          </a>
         </div>
       </div>
     </div>
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

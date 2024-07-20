@@ -1,9 +1,11 @@
 import React from 'react'
 import { ListItinerario } from '../../components/Itinerario/ListItinerario';
+import { AddItinerario } from '../../components/Itinerario/AddItinerario';
 
  const list = () => {
   return (
-    <ListItinerario/>
+
+    <AddItinerario/>
   )
 }
 export default list;
