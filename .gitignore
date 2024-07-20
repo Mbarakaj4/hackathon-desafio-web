@@ -31,3 +31,4 @@ back-end/package-lock.json
 
 # Env
 .env
+node_modules
