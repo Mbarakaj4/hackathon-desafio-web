@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Imagenes from "../../../components/Categorias/lugares/Imagenes";
-import { Textarea, user } from "@nextui-org/react";
+import { Textarea } from "@nextui-org/react";
 
 const LugarPage = () => {
   const URL = import.meta.env.VITE_API_URL;
