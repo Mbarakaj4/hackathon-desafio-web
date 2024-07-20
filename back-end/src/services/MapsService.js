@@ -9,6 +9,7 @@ class MapsService {
       "https://places.googleapis.com/v1/places:searchText",
       {
         textQuery: `${textQuery}, Encarnacion, Paraguay`,
+        pageSize: 20,
       },
       {
         headers: {

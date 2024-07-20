@@ -5,6 +5,7 @@ const mapsApi = require("./api/MapsApi");
 const userApi = require("./api/UserApi");
 const securityApi = require("./api/SecurityApi");
 const reviewApi = require("./api/ReviewApi");
+const itineraryApi = require("./api/ItineraryApi");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -28,3 +29,4 @@ app.use("/api/maps/", mapsApi);
 app.use("/api/user/", userApi);
 app.use("/api/security/", securityApi);
 app.use("/api/review/", reviewApi);
+app.use("/api/itinerary/", itineraryApi);

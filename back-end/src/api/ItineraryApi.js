@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const reviewService = require("../services/ReviewService");
+const itineraryService = require("../services/ItineraryService");
 const jwtUtils = require("../utils/JwtUtil");
 
 router.use(jwtUtils.authenticateToken);
 
-router.post("/create", async (request, response) => {
+router.post("/", async (request, response) => {
   try {
-    const review = request.body;
-    const status = await reviewService.createReview(review);
+    const itinerary = request.body;
+    const status = await itineraryService.createItinerary(itinerary);
     if (!status.success) {
       return response.status(400).json({ message: status.message });
     }
@@ -22,11 +22,11 @@ router.post("/create", async (request, response) => {
   }
 });
 
-router.get("/:placeId", async (request, response) => {
+router.get("/:userId", async (request, response) => {
   try {
-    const placeId = request.params.placeId;
-    const reviews = await reviewService.getReviewsByPlaceId(placeId);
-    response.status(200).json(reviews);
+    const userId = request.params.userId;
+    const itineraries = await itineraryService.getItinerariesByUserId(userId);
+    response.status(200).json(itineraries);
   } catch (error) {
     console.log(error.message);
     response.status(500).json({

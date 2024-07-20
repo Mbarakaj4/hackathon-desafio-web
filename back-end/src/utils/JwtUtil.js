@@ -1,74 +1,68 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 class JwtUtil {
+  static tokenSecret = "hackathon-token";
+  static refreshTokenSecret = "hackathon-refresh-token";
 
-    static tokenSecret = 'hackathon-token';
-    static refreshTokenSecret = 'hackathon-refresh-token';
+  static generateAccessToken(user) {
+    const payload = {
+      id: user._id ?? user.id,
+      email: user.email,
+      username: user.username,
+    };
 
-    static generateAccessToken(user) {
+    const options = { expiresIn: 300000 };
 
-        const payload = {
-            id: user._id ?? user.id,
-            email: user.email,
-            username: user.username
-        };
+    return jwt.sign(payload, this.tokenSecret, options);
+  }
 
-        const options = { expiresIn: 300 };
+  static verifyAccessToken(token) {
+    try {
+      const decoded = jwt.verify(token, this.tokenSecret);
+      return { success: true, data: decoded };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  }
 
-        return jwt.sign(payload, this.tokenSecret, options);
+  static authenticateToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) {
+      return res.sendStatus(401);
     }
 
-    static verifyAccessToken(token) {
+    const result = JwtUtil.verifyAccessToken(token);
 
-        try {
-            const decoded = jwt.verify(token, this.tokenSecret);
-            return { success: true, data: decoded };
-        } catch (error) {
-            return { success: false, error: error.message };
-        }
+    if (!result.success) {
+      return res.status(403).json({ error: result.error });
     }
 
-    static authenticateToken(req, res, next) {
-        const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1];
+    req.user = result.data;
+    next();
+  }
 
-        if (!token) {
-            return res.sendStatus(401);
-        }
+  static generateRefreshToken(user) {
+    const payload = {
+      id: user._id,
+      email: user.email,
+      username: user.username,
+    };
 
-        const result = JwtUtil.verifyAccessToken(token);
+    const options = { expiresIn: "5h" };
 
-        if (!result.success) {
-            return res.status(403).json({ error: result.error });
-        }
+    return jwt.sign(payload, this.refreshTokenSecret, options);
+  }
 
-        req.user = result.data;
-        next();
+  static verifyRefreshToken(token) {
+    try {
+      const decoded = jwt.verify(token, this.refreshTokenSecret);
+      return { success: true, data: decoded };
+    } catch (error) {
+      return { success: false, error: error.message };
     }
-
-    static generateRefreshToken(user) {
-        const payload = {
-            id: user._id,
-            email: user.email,
-            username: user.username
-        };
-
-        const options = { expiresIn: '5h' };
-
-        return jwt.sign(payload, this.refreshTokenSecret, options);
-    }
-
-    static verifyRefreshToken(token) {
-
-        try {
-            const decoded = jwt.verify(token, this.refreshTokenSecret);
-            return { success: true, data: decoded };
-        } catch (error) {
-            return { success: false, error: error.message };
-        }
-    }
-
-
+  }
 }
 
 module.exports = JwtUtil;
