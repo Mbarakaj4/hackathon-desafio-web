@@ -1,16 +1,19 @@
 function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:3000/api/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: event.target.email.value,
-        password: event.target.password.value,
-      }),
-    });
+    const response = await fetch(
+      "https://9v1r8dj9-3001.brs.devtunnels.ms/api/user",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: event.target.email.value,
+          password: event.target.password.value,
+        }),
+      }
+    );
 
     if (response.status === 200) {
       alert("Usuario autenticado");
