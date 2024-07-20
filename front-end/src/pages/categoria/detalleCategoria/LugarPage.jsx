@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Imagenes from "../../../components/Categorias/lugares/Imagenes";
 import { Textarea } from "@nextui-org/react";
+import Header from "../../../components/header";
 
 const LugarPage = () => {
   const URL = import.meta.env.VITE_API_URL;
@@ -58,7 +59,8 @@ const LugarPage = () => {
 
   return (
     <>
-      <header className="px-8">
+      <Header />
+      <section className="px-8">
         {lugar ? (
           <div className="flex items-center justify-between">
             <h1 className="text-4xl">{lugar.displayName.text}</h1>
@@ -72,7 +74,7 @@ const LugarPage = () => {
         ) : (
           <p>Cargando detalles del lugar...</p>
         )}
-      </header>
+      </section>
       {lugar && (
         <>
           <Imagenes photos={lugar.photos} />
