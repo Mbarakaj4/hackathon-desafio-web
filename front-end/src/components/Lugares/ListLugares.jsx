@@ -39,7 +39,7 @@ export const ListLugares = () => {
     }, [URL, location.pathname]);
 
     const redirectToPlace = (id) => {
-        navigate(`/lugar/${id}`);
+        navigate(`lugar/${id}`);
     };
 
     console.log(lugares);
