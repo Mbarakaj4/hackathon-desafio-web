@@ -78,7 +78,7 @@ const LugarPage = () => {
 
   return (
     <>
-      <Header title="Detalles" />
+      <Header title="Inicio" />
       <section className="px-8">
         {lugar ? (
           <div className="flex items-center justify-between">
@@ -119,7 +119,9 @@ const LugarPage = () => {
             <section className="flex flex-col justify-center p-8 gap-4 w-1/2">
               <form onSubmit={handleSubmit}>
                 <div className="flex items-center gap-4 mb-2">
-                  <label htmlFor="rating">Valoramos tu opinión</label>
+                  <label htmlFor="rating" className="ml-2">
+                    Valoramos tu opinión
+                  </label>
                   <select
                     name="rating"
                     id=""
@@ -132,18 +134,17 @@ const LugarPage = () => {
                     <option value="5">5</option>
                   </select>
                 </div>
-                <label htmlFor="review" className="text-2xl">
+                <label htmlFor="review" className="text-2xl pl-2">
                   Escribe tu propia reseña
                 </label>
                 <Textarea
                   name="review"
                   placeholder="Escribe tu reseña"
-                  className="w-full p-2"
-                  rows={4}
+                  className="w-full pl-0"
                 />
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white px-4 py-2  rounded-md"
+                  className="bg-blue-500 text-white px-4 py-2 ml-2  rounded-md hover:bg-blue-700"
                 >
                   Enviar
                 </button>
@@ -153,7 +154,7 @@ const LugarPage = () => {
               <section className="flex flex-col justify-center p-8 gap-4 w-1/2">
                 <h2 className="text-2xl">Reseñas</h2>
                 <div className="flex items-center gap-4">
-                  <StarRating rating={reviews.percentageFive || 0} number={5} />
+                  <StarRating rating={5} number={5} />
                   <span>{reviews.percentageFive || 0} %</span>
                 </div>
                 <div className="flex items-center gap-4">

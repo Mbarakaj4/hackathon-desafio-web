@@ -39,39 +39,37 @@ export const ListLugares = () => {
       .catch((error) => console.error("Error fetching places:", error));
   }, [URL, location.pathname]);
 
-    const redirectToPlace = (id) => {
-        navigate(`/lugar/${id}`);
-    };
+  const redirectToPlace = (id) => {
+    navigate(`/lugar/${id}`);
+  };
 
   console.log(lugares);
   return (
-
-<>
-  
-
-    <div className="grid grid-cols-1 p-6 md:grid-cols-3 gap-4">
-      {lugares.map((place) => (
-        <div
-          onClick={() => redirectToPlace(place.id)}
-          key={place.id}
-          className="bg-white p-3 max-w-sm rounded overflow-hidden shadow-lg"
-        >
-          <img
-            className="w-full h-48 object-cover"
-            src={place.photoUrl}
-            alt={place.displayName.text}
-          />
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">
-              {place.displayName.text}
+    <>
+      <div className="grid grid-cols-1 p-6 md:grid-cols-3 gap-4">
+        {lugares.map((place) => (
+          <div
+            onClick={() => redirectToPlace(place.id)}
+            key={place.id}
+            className="bg-white p-3 max-w-sm rounded overflow-hidden shadow-lg"
+          >
+            <img
+              className="w-full h-48 object-cover"
+              src={place.photoUrl}
+              alt={place.displayName.text}
+            />
+            <div className="px-6 py-4">
+              <div className="font-bold text-xl mb-2">
+                {place.displayName.text}
+              </div>
+              <p className="text-gray-700 text-base">
+                {place.formattedAddress}
+              </p>
             </div>
-            <p className="text-gray-700 text-base">{place.formattedAddress}</p>
+            <div className="px-6 pt-4 pb-2"></div>
           </div>
-          <div className="px-6 pt-4 pb-2"></div>
-        </div>
-      ))}
-    </div>
-    </> 
-
+        ))}
+      </div>
+    </>
   );
 };

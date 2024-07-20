@@ -13,7 +13,9 @@ export default function Header({ title }) {
   return (
     <header className="">
       <nav className="flex items-center justify-between h-16 bg-orange-700 text-white">
-        <h1 className="text-white text-2xl ml-4">{title}</h1>
+        <a href="/categoria" className="text-white text-2xl ml-4">
+          Inicio
+        </a>
         <div className="flex items-center gap-4 mr-4">
           <button
             onClick={handleLogout}
