@@ -29,7 +29,6 @@ export const BarCategorias = () => {
     return (
 <div className="w-full flex justify-center overflow-x-auto bg-white py-2">
     <div className="w-full max-w-7xl flex flex-col items-center justify-center">
-            <h2>Categorias</h2>
             
             
             <div className="flex items-center justify-center">
