@@ -1,25 +1,30 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 function LoginPage() {
   const URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch(`${URL}/api/security/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: event.target.email.value,
-        password: event.target.password.value,
-      }),
-    });
-
-    if (response.status === 200) {
-      alert("Usuario autenticado");
-      navigate("/categoria");
-    } else {
-      alert("Error al autenticar el usuario");
+    setLoading(true);
+    try {
+      const response = await fetch(`${URL}/api/security/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: event.target.email.value,
+          password: event.target.password.value,
+        }),
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        localStorage.setItem("token", data.token);
+        navigate("/categoria");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
   return (
@@ -63,7 +68,7 @@ function LoginPage() {
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Iniciar sesión
+                {loading ? "Cargando..." : "Iniciar sesión"}
               </button>
             </div>
           </form>
