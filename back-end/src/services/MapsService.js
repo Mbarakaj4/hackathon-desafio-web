@@ -5,10 +5,13 @@ require("dotenv").config();
 
 class MapsService {
   static async searchPlaces(textQuery) {
+    console.log(textQuery);
+    const query = `${textQuery}, Encarnacion, Paraguay`;
+    console.log(query);
     const response = await axios.post(
       "https://places.googleapis.com/v1/places:searchText",
       {
-        textQuery: `${textQuery}, Encarnacion, Paraguay`,
+        textQuery: query,
         pageSize: 20,
       },
       {
@@ -21,12 +24,17 @@ class MapsService {
       }
     );
     const places = response.data.places;
-    for (let i = 0; i < places.length; i++) {
-      const photoReference = places[i].photos[0].name;
-      const photoUrl = await MapsService.getPhoto(photoReference);
-      places[i].photoUrl = photoUrl;
-      const { photos, ...responseData } = places[i];
-      places[i] = responseData;
+    console.log(places);
+    try {
+      for (let i = 0; i < places.length; i++) {
+        const photoReference = places[i].photos[0].name;
+        const photoUrl = await MapsService.getPhoto(photoReference);
+        places[i].photoUrl = photoUrl;
+        const { photos, ...responseData } = places[i];
+        places[i] = responseData;
+      }
+    } catch (error) {
+      console.log(error);
     }
     return places;
   }

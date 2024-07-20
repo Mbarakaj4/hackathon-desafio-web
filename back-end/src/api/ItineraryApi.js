@@ -3,7 +3,7 @@ const router = express.Router();
 const itineraryService = require("../services/ItineraryService");
 const jwtUtils = require("../utils/JwtUtil");
 
-router.use(jwtUtils.authenticateToken);
+//router.use(jwtUtils.authenticateToken);
 
 router.post("/", async (request, response) => {
   try {

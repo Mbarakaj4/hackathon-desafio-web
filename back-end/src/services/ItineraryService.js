@@ -28,7 +28,7 @@ class ItineraryService {
 
     return {
       success: true,
-      message: "La itinerario ha sido registrada exitosamente",
+      message: "El itinerario ha sido registrada exitosamente",
     };
   }
 

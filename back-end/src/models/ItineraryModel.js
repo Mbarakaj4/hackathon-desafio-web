@@ -3,32 +3,38 @@ const Review = require("./ReviewsModel");
 const User = require("./UserModel");
 require("dotenv").config();
 
-
 const PlaceHoursSchema = mongoose.Schema({
-    placeId: {
-        type: String,
-        require: true
-    },
-    hours: {
-        type: String,
-        require: true
-    },
+  placeId: {
+    type: String,
+    require: true,
+  },
+  placeName: {
+    type: String,
+    require: true,
+  },
+  hours: {
+    type: String,
+    require: true,
+  },
 });
 
-const ItinerarySchema = mongoose.Schema({
+const ItinerarySchema = mongoose.Schema(
+  {
     date: {
-        type: Date,
-        require: true
+      type: String,
+      require: true,
     },
     User: {
-        type: User.schema,
-        require: true
+      type: User.schema,
+      require: true,
     },
-    places : {
-        type: [PlaceHoursSchema],
-        require: true
-    }
-}, {timestamps: true});
+    places: {
+      type: [PlaceHoursSchema],
+      require: true,
+    },
+  },
+  { timestamps: true }
+);
 
 const Itinerary = mongoose.model("Itinerary", ItinerarySchema);
 
