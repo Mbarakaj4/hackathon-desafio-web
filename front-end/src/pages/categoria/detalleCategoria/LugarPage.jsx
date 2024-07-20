@@ -100,6 +100,7 @@ const LugarPage = () => {
               <StarRating
                 rating={lugar.averageRating}
                 score_by={lugar.averageRating}
+                number={5}
               />
 
               <button className="bg-blue-500 text-white px-2 py-1 rounded-md hidden">
@@ -151,11 +152,26 @@ const LugarPage = () => {
             {reviews ? (
               <section className="flex flex-col justify-center p-8 gap-4 w-1/2">
                 <h2 className="text-2xl">Reseñas</h2>
-                <span>5 : {reviews.percentageFive || 0} %</span>
-                <span>4 : {reviews.percentageFour || 0} %</span>
-                <span>3 : {reviews.percentageThree || 0} %</span>
-                <span>2 : {reviews.percentageTwo || 0} %</span>
-                <span>1 : {reviews.percentageOne || 0} %</span>
+                <div className="flex items-center gap-4">
+                  <StarRating rating={reviews.percentageFive || 0} number={5} />
+                  <span>{reviews.percentageFive || 0} %</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <StarRating rating={4} number={5} />
+                  <span>{reviews.percentageFour || 0} %</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <StarRating rating={3} number={5} />
+                  <span>{reviews.percentageThree || 0} %</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <StarRating rating={2} number={5} />
+                  <span>{reviews.percentageTwo || 0} %</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <StarRating rating={1} number={5} />
+                  <span>{reviews.percentageOne || 0} %</span>
+                </div>
                 {reviews.reviews.map((review) => (
                   <div key={review._id} className="flex flex-col gap-4">
                     <h3 className="text-xl">{review.title}</h3>

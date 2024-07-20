@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Star } from "./Star";
-export const StarRating = ({ rating, score_by }) => {
-  const stars = Array.from({ length: 5 }, (_, index) => (
+export const StarRating = ({ rating, score_by, number }) => {
+  const stars = Array.from({ length: number }, (_, index) => (
     <div key={index}>
       <Star active={rating > index} />
     </div>
