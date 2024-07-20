@@ -15,22 +15,24 @@ const Lugares = () => {
   }, [nav]); // Dependencia nav para reaccionar si cambia, aunque es poco probable que cambie.
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Header title="Buscar lugares" />
-      <div className="container w-full ">
-        <div
-          className="relative bg-cover bg-center mb-6"
-          style={{ backgroundImage: "url('/banner.png')" }}
-        >
-          <div className="py-32">
-            <h1 className="text-3xl font-bold text-center text-gray-800"></h1>
-          </div>
+    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <Header title="Buscar lugares" />
+    <div className="flex-grow container mx-auto p-4 flex flex-col justify-center">
+      <div
+        className="bg-cover bg-center mb-6 w-full"
+        style={{ backgroundImage: "url('/banner.png')" }}
+      >
+        <div className="py-32">
+          <h1 className="text-3xl font-bold text-center text-white"></h1>
         </div>
+      </div>
 
+      <div className="w-full flex flex-col items-center">
         <BarCategorias />
         <ListLugares />
       </div>
     </div>
+  </div>
   );
 };
 

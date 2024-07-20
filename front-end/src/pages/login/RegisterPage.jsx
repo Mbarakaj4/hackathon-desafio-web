@@ -49,7 +49,7 @@ function RegisterPage() {
             
     
               <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-4">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mt-4 mb-4">
                   Nombre de usuario
                 </label>
                 <input
@@ -63,7 +63,7 @@ function RegisterPage() {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="mb-4 block text-sm font-medium text-gray-700">Email</label>
+                <label htmlFor="email" className="mb-4 block text-sm font-medium text-gray-700 mt-4">Email</label>
                 <input
                   id="email"
                   name="email"
@@ -75,7 +75,7 @@ function RegisterPage() {
                 />
               </div>
               <div>
-                <label htmlFor="password" className="mb-4 block text-sm font-medium text-gray-700">
+                <label htmlFor="password" className="mb-4 block text-sm mt-4 font-medium text-gray-700">
                   Contraseña
                 </label>
                 <input

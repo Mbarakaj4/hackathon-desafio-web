@@ -12,12 +12,12 @@ export default function Header({ title }) {
   }
   return (
     <header className="">
-      <nav className="flex items-center justify-between h-16 bg-gray-800 text-white">
+      <nav className="flex items-center justify-between h-16 bg-orange-700 text-white">
         <h1 className="text-white text-2xl ml-4">{title}</h1>
         <div className="flex items-center gap-4 mr-4">
           <button
             onClick={handleLogout}
-            className="text-white bg-blue-600 rounded-md px-4 py-1 hover:text-gray-200 hover:bg-blue-700"
+            className="text-white bg-white-600 rounded-md px-4 py-1 hover:text-gray-900 hover:bg-white-700"
           >
             Cerrar sesión
           </button>

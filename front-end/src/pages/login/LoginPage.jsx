@@ -46,21 +46,25 @@ function LoginPage() {
               Iniciar sesión
             </h2>
           </div>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <form className="mt-8 mb-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mt-4 mb-4">Email</label>
+
                 <input
                   id="email"
                   name="email"
                   type="text"
                   autoComplete="email"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-none relative  block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Usuario"
                 />
               </div>
               <div>
+              <label htmlFor="password" className="block text-sm  mt-4 font-medium text-gray-700 mb-4">Contraseña</label>
+
                 <input
                   id="password"
                   name="password"
@@ -82,7 +86,7 @@ function LoginPage() {
               </button>
             </div>
           </form>
-          <a href="/register" className="mt-2 text-center">
+          <a href="/registrarse" className="mt-8 text-center">
             No tienes cuenta? Regístrate
           </a>
         </div>
