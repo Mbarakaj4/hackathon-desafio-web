@@ -25,7 +25,7 @@ function LoginPage() {
         localStorage.setItem("refreshToken", data.refreshToken);
         //guardar el objeto user en el localStorage
         localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/categoria");
+        navigate("/categoria/Atracciones");
       }
       throw new Error(data.message);
     } catch (error) {
@@ -50,7 +50,12 @@ function LoginPage() {
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mt-4 mb-4">Email</label>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mt-4 mb-4"
+                >
+                  Email
+                </label>
 
                 <input
                   id="email"
@@ -63,7 +68,12 @@ function LoginPage() {
                 />
               </div>
               <div>
-              <label htmlFor="password" className="block text-sm  mt-4 font-medium text-gray-700 mb-4">Contraseña</label>
+                <label
+                  htmlFor="password"
+                  className="block text-sm  mt-4 font-medium text-gray-700 mb-4"
+                >
+                  Contraseña
+                </label>
 
                 <input
                   id="password"
