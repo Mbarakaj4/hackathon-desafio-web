@@ -3,7 +3,7 @@ const router = express.Router();
 const reviewService = require("../services/ReviewService");
 const jwtUtils = require("../utils/JwtUtil");
 
-router.use(jwtUtils.authenticateToken);
+//router.use(jwtUtils.authenticateToken);
 
 router.post("/create", async (request, response) => {
   try {
